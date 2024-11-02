@@ -18,7 +18,7 @@ tags:
 # Ex01 See What You Can C
 主要是让你理解C语言的分支控制语句, 太基础了, 跳过.
 # Ex02 GDB/CGDB 
-# Ex03 
+# Ex03 Input Redirection
 # Ex04 Valgrind
 > [!INFO] Heisenbugs & Bohrbugs
 > *Heisenbugs*是指那些如同[海森堡测不准原理](https://zh.wikipedia.org/zh-cn/不确定性原理)一样难以测定, 难以复现的bug;
@@ -47,7 +47,7 @@ int main() {
     }
 }
 ```
-看到`segfault`程序直接崩溃了, 报错称遇到了segmentation fault.
+`segfault`程序直接崩溃了, 报错称遇到了segmentation fault.
 ```bash
 ❯ ./segfault
 [1]    18021 segmentation fault (core dumped)
@@ -81,5 +81,7 @@ sum of array is 263147542
 显然第一个程序出现的bug为*Bohrbug*, 属于一眼就能找到错误的类型: 无限循环导致的数组下标越界导致的分段错误. 
 
 而第二个则是*Heisenbug*, 出错的地方可就没有那么明显了.
-> TODO run valgrind
+
+接下来使用valgrind分析两个程序.
+> TODO: run valgrind
 
