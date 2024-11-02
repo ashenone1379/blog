@@ -5,6 +5,7 @@ tags:
   - gdb
   - valgrind
   - c
+  - dev-tool
 ---
 # Valgrind
 > [!INFO] Heisenbugs & Bohrbugs
@@ -18,11 +19,11 @@ tags:
 很多时候, *Heisenbugs* 是由内存管理问题导致的, 因此**Valgrind**非常适合用来发现*Heisenbugs*.
 
 > [!caution] Valgrind 平台兼容性
-> Valgrind 并**不兼容Windows平台**, 对此UCB给他们的学生们的解决方案, 是通过SSH连接到学校提供的Hive Machine服务器上, 使用上面的开发环境有Valgrind.
+> Valgrind 并**不兼容Windows平台**, 因此UCB给他们的学生提供了Hive Machine服务器, 学生可以通过SSH连接, 使用上面配有Valgrind的开发环境.
 > 
 > 作为校外白嫖课程的学生当然没资格享受这个服务了, 所以另一种解决方法是: 使用[WSL](https://learn.microsoft.com/zh-cn/windows/wsl/about)~~(其实也就相当于SSH连接到本地的Linux服务器)~~
 
-下面来看lab中的两个示例程序`segfault`和`no_segfault`, 以及两者的运行结果.
+下面来看lab中提供的两个示例程序`segfault`和`no_segfault`, 以及两者的运行结果.
 > `segfault`
 ```c
 //segfault.c
@@ -65,3 +66,6 @@ sum of array is -2022076669
 sum of array is 263147542
 
 ```
+显然第一个程序出现的bug属于*Heisenbug*, 而第二个则是*Bohrbug*.
+> TODO run valgrind
+
