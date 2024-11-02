@@ -35,7 +35,7 @@ tags:
 > 
 > 作为非本校的, 白嫖课程的学生当然没资格享受这个服务了, 所以另一种解决方法是: 使用[WSL](https://learn.microsoft.com/zh-cn/windows/wsl/about)~~(其实也就相当于SSH连接到本地的Linux服务器)~~
 
-下面来看lab中提供的两个示例程序`segfault`和`no_segfault`, 以及两者的运行结果.
+下面来看编译, 运行lab中提供的两个示例程序`segfault`和`no_segfault`.
 > `segfault`
 ```c
 //segfault.c
@@ -47,7 +47,7 @@ int main() {
     }
 }
 ```
-可以看到`segfault`程序直接崩溃了, 报错称遇到了segmentation fault.
+看到`segfault`程序直接崩溃了, 报错称遇到了segmentation fault.
 ```bash
 ❯ ./segfault
 [1]    18021 segmentation fault (core dumped)
@@ -68,7 +68,7 @@ int main() {
 }
 
 ```
-而`no_segfault`程序则成功运行, 但是显然结果不正确, 且每次都不同.
+`no_segfault`程序则成功运行, 但是输出结果不正确且每次都不同.
 ```bash
 ❯ ./no_segfault
 sum of array is -631332874
@@ -78,8 +78,8 @@ sum of array is -2022076669
 sum of array is 263147542
 
 ```
-显然第一个程序出现的bug为*Heisenbug*, 属于一眼就能找到错误的类型: 无限循环导致的数组下标越界导致的分段错误. 
+显然第一个程序出现的bug为*Bohrbug*, 属于一眼就能找到错误的类型: 无限循环导致的数组下标越界导致的分段错误. 
 
-而第二个则是*Bohrbug*, 出错的地方可就没有那么明显了.
+而第二个则是*Heisenbug*, 出错的地方可就没有那么明显了.
 > TODO run valgrind
 
