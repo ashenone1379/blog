@@ -33,7 +33,7 @@ tags:
 > [!caution] Valgrind 平台兼容性
 > Valgrind 并**不兼容Windows平台**, 因此UCB给他们的学生提供了Hive Machine服务器, 学生可以通过SSH连接, 使用上面配有Valgrind的开发环境.
 > 
-> 作为校外白嫖课程的学生当然没资格享受这个服务了, 所以另一种解决方法是: 使用[WSL](https://learn.microsoft.com/zh-cn/windows/wsl/about)~~(其实也就相当于SSH连接到本地的Linux服务器)~~
+> 作为非本校的, 白嫖课程的学生当然没资格享受这个服务了, 所以另一种解决方法是: 使用[WSL](https://learn.microsoft.com/zh-cn/windows/wsl/about)~~(其实也就相当于SSH连接到本地的Linux服务器)~~
 
 下面来看lab中提供的两个示例程序`segfault`和`no_segfault`, 以及两者的运行结果.
 > `segfault`
