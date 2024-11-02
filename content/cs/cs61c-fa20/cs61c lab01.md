@@ -7,16 +7,28 @@ tags:
   - c
   - dev-tool
 ---
-# Valgrind
+> [点此阅读Lab01](https://www.learncs.site/docs/curriculum-resource/cs61c/labs/lab01)
+# Ex00 Command Line Basics
+使用`gcc`编译程序的基本方法如下.
+
+紧跟`-o`选项的字段为目标程序名, 接下来是程序的各个源文件.
+```bash
+❯ gcc -o <program_name> src_file_1.c src_file_2.c ...
+```
+# Ex01 See What You Can C
+主要是让你理解C语言的分支控制语句, 太基础了, 跳过.
+# Ex02 GDB/CGDB 
+# Ex03 
+# Ex04 Valgrind
 > [!INFO] Heisenbugs & Bohrbugs
-> *Heisenbugs* 是指那些如同[海森堡测不准原理](https://zh.wikipedia.org/zh-cn/不确定性原理)一样难以测定, 难以复现的bug;
+> *Heisenbugs*是指那些如同[海森堡测不准原理](https://zh.wikipedia.org/zh-cn/不确定性原理)一样难以测定, 难以复现的bug;
 > 
-> *Bohrbugs* 则与之相反, 如同[玻尔模型](https://zh.wikipedia.org/wiki/玻尔模型)中的原子, 行为可以预测, 容易复现和解决的bug.
+> *Bohrbugs*则与之相反, 如同[玻尔模型](https://zh.wikipedia.org/wiki/玻尔模型)中的原子, 行为可以预测, 容易复现和解决的bug.
 > 
 
 [Valgrind](https://valgrind.org/)是一个用于内存调试、内存泄漏检测以及性能分析的开发工具. 
 
-很多时候, *Heisenbugs* 是由内存管理问题导致的, 因此**Valgrind**非常适合用来发现*Heisenbugs*.
+很多时候, *Heisenbugs*是由内存管理问题导致的, 因此**Valgrind**非常适合用来捕获这种类型的*Heisenbugs*.
 
 > [!caution] Valgrind 平台兼容性
 > Valgrind 并**不兼容Windows平台**, 因此UCB给他们的学生提供了Hive Machine服务器, 学生可以通过SSH连接, 使用上面配有Valgrind的开发环境.
@@ -66,6 +78,8 @@ sum of array is -2022076669
 sum of array is 263147542
 
 ```
-显然第一个程序出现的bug属于*Heisenbug*, 而第二个则是*Bohrbug*.
+显然第一个程序出现的bug为*Heisenbug*, 属于一眼就能找到错误的类型: 无限循环导致的数组下标越界导致的分段错误. 
+
+而第二个则是*Bohrbug*, 出错的地方可就没有那么明显了.
 > TODO run valgrind
 
