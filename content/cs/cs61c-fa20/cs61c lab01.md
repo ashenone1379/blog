@@ -13,7 +13,7 @@ tags:
 
 紧跟`-o`选项的字段为目标程序名, 接下来是程序的各个源文件.
 ```bash
-❯ gcc -o <program_name> src_file_1.c src_file_2.c ...
+❯ gcc -o {program_name} src_file_1.c src_file_2.c ...
 ```
 # Ex01 See What You Can C
 主要是让你理解C语言的分支控制语句, 太基础了, 跳过.
@@ -35,7 +35,7 @@ tags:
 > 
 > 作为非本校的, 白嫖课程的学生当然没资格享受这个服务了, 所以另一种解决方法是: 使用[WSL](https://learn.microsoft.com/zh-cn/windows/wsl/about)~~(其实也就相当于SSH连接到本地的Linux服务器)~~
 
-下面来看编译, 运行lab中提供的两个示例程序`segfault`和`no_segfault`.
+下面来编译, 运行lab中提供的两个示例程序`segfault`和`no_segfault`.
 > `segfault`
 ```c
 //segfault.c
