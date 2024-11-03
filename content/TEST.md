@@ -21,8 +21,9 @@ $$
 ###### H6
 - [ ] Todo test1
 - [x] Todo test2
-- [-] Todo test3
-- [+] Todo test4
+- [>] Todo test3
+- [<] Todo test4
+- [?] Todo test5
 
 >Quote test
 - 1

@@ -82,8 +82,9 @@ sum of array is 263147542
 
 而第二个则是*Heisenbug*, 出错的地方可就没有那么明显了.
 
+## Valgrind Memcheck
 接下来使用valgrind分析两个程序.
-
+### `segfault`
 > 使用命令`> ./valgrind segfault`
 
 
@@ -124,6 +125,30 @@ sum of array is 263147542
 ![valgrind_segfault01](attachments/valgrind_segfault01.png)
 ![valgrind_segfault02](attachments/valgrind_segfault02.png)
 
+### `nosegfault`
+![valgrind_nosegfault01](attachments/valgrind_nosegfault01.png)
+
+## Questions
+>[!question] Why is Valgrind important and how is it useful?
+
+Valgrind 能够分析内存错误, 帮助我们找到*Heisenbug*.
+
+> [!question] How do you run a program in Valgrind?
+
+使用命令`valgrind {executable}`
+
+> [!question] How do you interpret the error messages? 
+
+- 例1: `InvalidWrite` $\to$ 给未分配的内存写入值, 由数组下标越界导致;
+- 例2: `UninitValue` $\to$ 使用了未初始化的值, 这里同样也是数组下标越界导致.
 
 
+> [!question] Why might uninitialized variables result in “heisenbugs”?
 
+未初始化的变量存储着没有意义且不确定的垃圾值.
+## Further Questions
+>[!question] Why **didn’t** the `no_segfault_ex` program segfault?
+
+>[!question] Why does the `no_segfault_ex` produce inconsistent outputs?
+
+>[!question] Why is `sizeof` incorrect? How could you still use `sizeof` but make the code correct?
