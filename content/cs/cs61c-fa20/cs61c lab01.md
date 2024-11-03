@@ -18,8 +18,84 @@ tags:
 # Ex01 See What You Can C
 主要是让你理解C语言的分支控制语句, 太基础了, 跳过.
 # Ex02 GDB/CGDB 
+## GDB & CGDB
+[GDB](https://sourceware.org/gdb/)是GNU 项目的一部分, 是一个强大的调试工具. 
+
+[CGDB](https://cgdb.github.io/)与之类似, 但是添加了一个显示代码的区域, 在调试过程中可以显示程序运行于代码的具体位置. 通过`<ESC>`可以将光标移动到代码区, `i`回到命令区.
+
+> gdb/cgdb的基本用法可以参考[gdb refcard](attachments/gdb5-refcard.pdf)
+
+为生成可供调试的程序, 需要在编译时添加`-g`选项.
+```bash
+❯ gcc -g -o {program_name} src_file_1.c src_file_2.c ...
+```
+
+## Questions
+>[!question] Q1 设置传入参数
+>While you’re in a gdb session, how do you **set the arguments** that will be passed to the program when it’s run?
+
+```gdb
+set args <arg1> arg2> ...
+```
+
+>[!question] Q2 设置断点
+> How do you **create a breakpoint**?
+
+```gdb
+b <line number>
+```
+
+ >[!question] Q3 逐过程调试
+ > How do you execute the next line of C code in the program after stopping at a breakpoint?
+ 
+```gdb
+n
+```
+
+>[!question] Q4 逐行调试
+>If the next line of code is a function call, you’ll execute the whole function call at once if you use your answer to #3. (If not, consider a different command for #3!) How do you tell GDB that you **want to debug the code inside the function** (i.e. step into the function) instead? (If you changed your answer to #3, then that answer is most likely now applicable here.)
+
+```gdb
+s
+```
+
+>[!question] Q5 从断点继续
+>How do you **continue the program after stopping** at a breakpoint?
+
+```gdb
+c
+```
+
+>[!question] Q6 求值
+>How can you **print the value of a variable** (or even an expression like 1+2) in gdb?
+
+```gdb
+p <expression>
+```
+
+>[!question] Q7 添加监视
+>How do you configure gdb so it **displays the value of a variable after every step**?
+
+```gdb
+display <val name>
+```
+
+>[!question] Q8 查看当前作用域变量值
+>How do you **show a list of all variables and their values** in the current function?
+
+```gdb
+info local
+```
+
+>[!question] Q9 退出
+>How do you **quit** out of gdb?
+
+```gdb
+q
+```
 # Ex03 Input Redirection
 # Ex04 Valgrind
+## Intro
 > [!INFO] Heisenbugs & Bohrbugs
 > *Heisenbugs*是指那些如同[海森堡测不准原理](https://zh.wikipedia.org/zh-cn/不确定性原理)一样难以测定, 难以复现的bug;
 > 
@@ -35,6 +111,7 @@ tags:
 > 
 > 作为非本校的, 白嫖课程的学生当然没资格享受这个服务了, 所以另一种解决方法是: 使用[WSL](https://learn.microsoft.com/zh-cn/windows/wsl/about)~~(其实也就相当于SSH连接到本地的Linux服务器)~~
 
+## Bugs
 下面来编译, 运行lab中提供的两个示例程序`segfault`和`no_segfault`.
 > `segfault`
 ```c
@@ -80,7 +157,7 @@ sum of array is 263147542
 ```
 显然第一个程序出现的bug为*Bohrbug*, 属于一眼就能找到错误的类型: 无限循环导致的数组下标越界导致的分段错误. 
 
-而第二个则是*Heisenbug*, 出错的地方可就没有那么明显了.
+而第二个则是*Heisenbug*, 出错的地方可就没有那么明显了. 你能找到其中的错误吗?
 
 ## Valgrind Memcheck
 接下来使用valgrind分析两个程序.
