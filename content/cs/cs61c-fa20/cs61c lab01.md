@@ -83,5 +83,47 @@ sum of array is 263147542
 而第二个则是*Heisenbug*, 出错的地方可就没有那么明显了.
 
 接下来使用valgrind分析两个程序.
-> TODO: run valgrind
+
+> 使用命令`> ./valgrind segfault`
+
+
+ ```
+==3460== Memcheck, a memory error detector
+==3460== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3460== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==3460== Command: ./segfault
+==3460== 
+==3460== Invalid write of size 4
+==3460==    at 0x10914F: main (segfault_ex.c:4)
+==3460==  Address 0x1fff001000 is not stack'd, malloc'd or (recently) free'd
+==3460== 
+==3460== 
+==3460== Process terminating with default action of signal 11 (SIGSEGV)
+==3460==  Access not within mapped region at address 0x1FFF001000
+==3460==    at 0x10914F: main (segfault_ex.c:4)
+==3460==  If you believe this happened as a result of a stack
+==3460==  overflow in your program's main thread (unlikely but
+==3460==  possible), you can try to increase the size of the
+==3460==  main thread stack using the --main-stacksize= flag.
+==3460==  The main thread stack size used in this run was 8388608.
+==3460== 
+==3460== HEAP SUMMARY:
+==3460==     in use at exit: 0 bytes in 0 blocks
+==3460==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==3460== 
+==3460== All heap blocks were freed -- no leaks are possible
+==3460== 
+==3460== For lists of detected and suppressed errors, rerun with: -s
+==3460== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+[1]    3460 segmentation fault (core dumped)  valgrind ./segfault
+ ```
+
+> 或是直接使用IDE调用valgrind, 获得了更加可读的结果, 错误的代码行位置也被一并指出了
+
+
+![valgrind_segfault01](attachments/valgrind_segfault01.png)
+![valgrind_segfault02](attachments/valgrind_segfault02.png)
+
+
+
 
