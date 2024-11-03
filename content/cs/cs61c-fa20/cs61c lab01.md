@@ -124,10 +124,10 @@ sum of array is 263147542
 
 ![valgrind_segfault01](attachments/valgrind_segfault01.png)
 ![valgrind_segfault02](attachments/valgrind_segfault02.png)
-
+第一个例子的警告是很清晰的: 向非栈中, 或未被`malloc`, 或并非最近被`free`掉的区域, 非法写值, 结果就是程序发生segmentation fault崩溃.
 ### `nosegfault`
 ![valgrind_nosegfault01](attachments/valgrind_nosegfault01.png)
-
+第二个立即的报错信息就不是那么直观了, 但是方向是对的: 访问了未初始化的值. 这导致了输出的结果每次都不同.
 ## Questions
 >[!question] Why is Valgrind important and how is it useful?
 
@@ -149,6 +149,20 @@ Valgrind 能够分析内存错误, 帮助我们找到*Heisenbug*.
 ## Further Questions
 >[!question] Why **didn’t** the `no_segfault_ex` program segfault?
 
+`no_segfault`只越界访问了数组后的一小部分区域, 这一部分的内存是被分配给教程了的.
+
 >[!question] Why does the `no_segfault_ex` produce inconsistent outputs?
 
+`no_segfault`在循环第5次后, 开始读取紧接着数组后的内存的值, 这部分的没有被初始化, 里面的值都是不确定的垃圾值, 所以每次运行结果都不同.
+
 >[!question] Why is `sizeof` incorrect? How could you still use `sizeof` but make the code correct?
+
+`sizeof`返回对象所占内存的大小, 在大多数的现代机器上, `int`的大小为4 bytes, 所以一个存储5个`int`变量的数组的大小应该是$5\times 4=20$ bytes.  所以循环实际上会进行20次, 而非预期的5次. 
+
+正确的写法为
+```c
+    for (int j = 0; j < sizeof(a) / sizeof(a[0]); j++) {
+        total += a[j];
+    }
+```
+`sizeof(a) / sizeof(a[0])`将正确返回数组的元素个数.
