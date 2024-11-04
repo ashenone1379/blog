@@ -94,6 +94,46 @@ info local
 q
 ```
 # Ex03 Input Redirection
+有时调试的程序需要用户输入, 我们当然不想每次调试的时候都手动输入一遍信息, 这时候就需要进行**输入重定向**.
+```c
+#include <stdio.h>
+
+#define MAX_LEN 80
+
+int main(int argc, char *argv[]) {
+    char a_word[MAX_LEN];
+
+    printf("What's your name?\n");
+    fgets(a_word, MAX_LEN, stdin);
+    printf("Hey, %sI just really wanted to say hello to you.\nI hope you have a wonderful day.", a_word);
+
+    return 0;
+}
+
+```
+对于上面这个的程序, 在`gdb`中调试时使用了输入重定向符`<`
+```gdb
+(gdb) r < build/name.txt
+```
+将标准输入从用户输入重定向到文件`name.txt`. 避免了调试时手动输入内容.
+```gdb
+$ gdb build/interactive_hello.exe 
+Reading symbols from build/interactive_hello.exe...
+(gdb) b 10
+Breakpoint 1 at 0x4013c0: file interactive_hello.c, line 10.
+(gdb) r < build/name.txt 
+Starting program: C:\Users\29201\CLionProjects\cs61c-fa20-labs\lab01\build\interactive_hello.exe < build/name.txt
+[New Thread 21240.0x4c40]
+What's your name?
+
+Thread 1 hit Breakpoint 1, main (argc=1, argv=0x121678) at interactive_hello.c:10
+10          printf("Hey, %sI just really wanted to say hello to you.\nI hope you have a wonderful day.", a_word);
+(gdb) n
+Hey, Foo
+I just really wanted to say hello to you.
+I hope you have a wonderful day.12          return 0;
+
+```
 # Ex04 Valgrind
 ## Intro
 > [!INFO] Heisenbugs & Bohrbugs
@@ -243,3 +283,45 @@ Valgrind 能够分析内存错误, 帮助我们找到*Heisenbug*.
     }
 ```
 `sizeof(a) / sizeof(a[0])`将正确返回数组的元素个数.
+
+# Ex05 
+经典的判断链表有无环的问题, 思路:
+- 分别设置两个指针遍历链表元素:
+	- 一个速度较慢: 每轮循环更新指向下一个元素
+	- 一个速度较快: 每轮循环更新指向下下个元素. 
+- 如果两者在循环中相遇, 说明链表有环
+- 如果快指针遍历到了链表尾部, 说明链表无环
+
+```c
+#include <stddef.h>
+#include "ll_cycle.h"
+
+int ll_has_cycle(node *head) {
+    if (head == NULL)
+        return 0;
+    const node *ptr1 = head;
+    const node *ptr2 = head->next;
+    while (ptr2 != NULL && ptr2->next != NULL) {
+        if (ptr1 == ptr2) {
+            return 1;
+        }
+        ptr1 = ptr1->next;
+        ptr2 = ptr2->next->next;
+    }
+    return 0;
+}
+
+```
+本地测试结果
+```bash
+C:\Users\29201\CLionProjects\cs61c-fa20-labs\lab01\cmake-build-debug\ll_cycle.exe
+Checking first list for cycles. There should be none, ll_has_cycle says it has no cycle
+Checking second list for cycles. There should be a cycle, ll_has_cycle says it has a cycle
+Checking third list for cycles. There should be a cycle, ll_has_cycle says it has a cycle
+Checking fourth list for cycles. There should be a cycle, ll_has_cycle says it has a cycle
+Checking fifth list for cycles. There should be none, ll_has_cycle says it has no cycle
+Checking length-zero list for cycles. There should be none, ll_has_cycle says it has no cycle
+
+进程已结束，退出代码为 0
+
+```
